@@ -8,12 +8,12 @@
       %th.hilite{:class=>@title_header, :id=>"title_header"}= link_to "Movie Title", :sort=>'title'
     -else
       %th{:class=>@title_header, :id=>"title_header"}= link_to "Movie Title", :sort=>'title'
-      %th Rating
+    %th Rating
     -if @renderRelease
       %th.hilite{:class=>@release_header, :id=>"release_date_header"}= link_to "Release Date", :sort=>'release_date'
     -else
       %th{:class=>@release_header, :id=>"release_date_header"}= link_to "Release Date", :sort=>'release_date'  
-      %th More Info
+    %th More Info
   %tbody
     - @movies.each do |movie|
       %tr
