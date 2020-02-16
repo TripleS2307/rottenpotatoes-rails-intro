@@ -24,7 +24,7 @@
 
 = link_to 'Add new movie', new_movie_path
 = form_tag movies_path, :method => :get do
-Include:
+  Include:
   - @all_ratings.each do |rating|
     = rating
     = check_box_tag "ratings[#{rating}]"
