@@ -1,4 +1,6 @@
 -#  This file is app/views/movies/index.html.haml
+-#{:class=>@title_header, :id=>"title_header"}
+-#{:class=>@release_header, :id=>"release_date_header"}
 %h2 All Movies
 = form_tag movies_path, :id => "ratings_form" ,:method => :get do
   Include:
@@ -10,14 +12,14 @@
   %thead  
     %tr
     -if @renderMovies
-      %th.hilite{:class=>@title_header, :id=>"title_header"}= link_to "Movie Title", :sort=>'title'
+      %th.hilite= link_to "Movie Title", :sort=>'title'
     -else
-      %th{:class=>@title_header, :id=>"title_header"}= link_to "Movie Title", :sort=>'title'
+      %th= link_to "Movie Title", :sort=>'title'
     %th Rating
     -if @renderRelease
-      %th.hilite{:class=>@release_header, :id=>"release_date_header"}= link_to "Release Date", :sort=>'release_date'
+      %th.hilite= link_to "Release Date", :sort=>'release_date'
     -else
-      %th{:class=>@release_header, :id=>"release_date_header"}= link_to "Release Date", :sort=>'release_date'  
+      %th= link_to "Release Date", :sort=>'release_date'  
     %th More Info
   %tbody
     - @movies.each do |movie|
