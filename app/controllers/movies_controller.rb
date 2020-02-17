@@ -15,9 +15,9 @@ class MoviesController < ApplicationController
     @renderMovies = params[:sort] == "title" ? true : false
     @renderRelease = params[:sort] == "release_date"? true : false
     @all_ratings = Movie.all_ratings
--#    ratings = params[:ratings] != nil ? params[:ratings].keys : @all_ratings
--#    @rating_checked = Hash[@all_ratings.map{|r| [r,ratings.include?(r)]}]
--#    @movies = Movie.where(rating: ratings)
+    ratings = params[:ratings] != nil ? params[:ratings].keys : @all_ratings
+    @rating_checked = Hash[@all_ratings.map{|r| [r,ratings.include?(r)]}]
+    @movies = Movie.where(rating: ratings)
     
   end
 
