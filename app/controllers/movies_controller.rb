@@ -14,6 +14,7 @@ class MoviesController < ApplicationController
     @movies = Movie.order(params[:sort])
     @renderMovies = params[:sort] == "title" ? true : false
     @renderRelease = params[:sort] == "release_date"? true : false
+    @all_ratings = Movie.all_ratings
   end
 
   def new
