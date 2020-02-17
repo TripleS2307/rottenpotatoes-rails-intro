@@ -1,7 +1,13 @@
 -#  This file is app/views/movies/index.html.haml
 %h2 All Movies
+= form_tag movies_path, :method => :get do
+  Include:
+  - @all_ratings.each do |rating|
+    = rating
+    = check_box_tag "ratings[#{rating}]"
+  = submit_tag 'Refresh'
 %table#movies.table.table-striped.col-md-12
-  %thead
+  %thead  
     %tr
     -if @renderMovies
       %th.hilite{:class=>@title_header, :id=>"title_header"}= link_to "Movie Title", :sort=>'title'
