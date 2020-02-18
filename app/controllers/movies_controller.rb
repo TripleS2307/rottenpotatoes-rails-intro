@@ -12,23 +12,21 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.order(params[:sort])
-    if params.key?(:sort)
-      session[:sort] = params[:sort]
-    elsif session.key?(:sort)
-      params[:sort] = session[:sort]
-      redirect_to movies_path(params) and return
+    @renderMovies = params[:sort] == "title" ? true : false
+    @renderRelease = params[:sort] == "release_date"? true : false
+    if params[:ratings] != nil
+      session[:ratings] = params[:ratings]
     end
-    @all_ratings = Movie.all_ratings
-    if params.key?(:sort)
+    if params[:sort] != nil
       session[:sort] = params[:sort]
-    elsif session.key?(:sort)
-      params[:sort] = session[:sort] and return
+    end
+    if params[:ratings] == nil && params[:sort] == nil
+      params[:ratings] = session[:ratings]
+      params[:sort] = session[:sort]
     end
     ratings = params[:ratings] != nil ? params[:ratings].keys : @all_ratings
     @rating_checked = Hash[@all_ratings.map{|r|[r,ratings.include?(r)]}]
     @movies = Movie.where(rating: ratings)
-    @renderMovies = params[:sort] == "title" ? true : false
-    @renderRelease = params[:sort] == "release_date"? true : false
   end
   def new  
     # default: render 'new' template
