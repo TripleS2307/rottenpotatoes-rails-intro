@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://rubygems.org' 
 
 ruby '>=2.2.0', '<3.0'
 
@@ -46,7 +46,7 @@ group :development, :test do
   gem 'guard-rspec'
 
   # Use sqlite3 as the database for Active Record
-gem 'pg', '~> 0.21'
+  gem 'pg', '~> 0.21'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
@@ -59,5 +59,3 @@ group :production do
   gem 'pg', '~> 0.21' # for Heroku deployment
   gem 'rails_12factor'
 end
-
-
