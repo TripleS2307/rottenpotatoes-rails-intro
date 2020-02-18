@@ -28,7 +28,7 @@ class MoviesController < ApplicationController
     end
     ratings = params[:ratings] != nil ? params[:ratings].keys : @all_ratings
     @rating_checked = Hash[@all_ratings.map{|r|[r,ratings.include?(r)]}]
-    @movies = Movie.where(rating: @ratings_checked)
+    @movies = Movie.where(rating: ratings)
   end
   def new  
     # default: render 'new' template
