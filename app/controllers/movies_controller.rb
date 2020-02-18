@@ -25,7 +25,7 @@ class MoviesController < ApplicationController
     @rating_checked = Hash[@all_ratings.map{|r|[r,ratings.include?(r)]}]
     @movies = Movie.where(rating: ratings)
   end
-  def new 
+  def new  
     # default: render 'new' template
   end
 
