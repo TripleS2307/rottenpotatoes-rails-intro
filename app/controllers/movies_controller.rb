@@ -15,6 +15,10 @@ class MoviesController < ApplicationController
     if params[:ratings] == nil && session[:ratings] != nil
       @filters = @all_ratings
       params[:ratings] = session[:ratings]
+    elsif params[:ratings] == nil
+      @filters = @all_ratings
+    else
+      @filters = params[:ratings]
     end
     @filters = params[:ratings].nil? ? @all_ratings : params[:ratings]
     
