@@ -46,8 +46,7 @@ class MoviesController < ApplicationController
       redirect_to movies_path({:sort => session[:sort], :ratings => session[:ratings]})
     else
       @movies = Movie.all
-    
-  end
+    end
   def new  
     # default: render 'new' template
   end
