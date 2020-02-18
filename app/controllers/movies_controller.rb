@@ -34,7 +34,7 @@ class MoviesController < ApplicationController
       @renderMovies = params[:sort] == "title" ? true : false
       @renderRelease = params[:sort] == "release_date"? true : false
       session[:sort] = params[:sort]
-      @movies = Movie.where(:ratings => params[:ratings])
+      @movies = Movie.where(:ratings => @filters)
       @movies = Movie.order(params[:sort])
     elsif(params[:sort] && params[:ratings] == nil)
       @renderMovies = params[:sort] == "title" ? true : false
@@ -44,7 +44,7 @@ class MoviesController < ApplicationController
     elsif(session[:sort])
       redirect_to movies_path({:sort => session[:sort], :ratings => session[:ratings]})
     else
-      @movies = Movie.all
+      @movies = Movie.where(:ratings => @filters)
     end
   end
   def new  
