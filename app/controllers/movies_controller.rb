@@ -34,7 +34,7 @@ class MoviesController < ApplicationController
       @renderMovies = params[:sort] == "title" ? true : false
       @renderRelease = params[:sort] == "release_date"? true : false
       session[:sort] = params[:sort]
-      @movies = Movie.where(:ratings => @filters)
+      @movies = Movie.where(:ratings => params[:ratings])
       @movies = Movie.order(params[:sort])
     elsif(params[:sort] && params[:ratings] == nil)
       @renderMovies = params[:sort] == "title" ? true : false
