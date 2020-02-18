@@ -12,8 +12,6 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.order(params[:sort])
-    @renderMovies = params[:sort] == "title" ? true : false
-    @renderRelease = params[:sort] == "release_date"? true : false
     if params.key?(:sort)
       session[:sort] = params[:sort]
     elsif session.key?(:sort)
@@ -29,6 +27,8 @@ class MoviesController < ApplicationController
     ratings = params[:ratings] != nil ? params[:ratings].keys : @all_ratings
     @rating_checked = Hash[@all_ratings.map{|r|[r,ratings.include?(r)]}]
     @movies = Movie.where(rating: ratings)
+    @renderMovies = params[:sort] == "title" ? true : false
+    @renderRelease = params[:sort] == "release_date"? true : false
   end
   def new  
     # default: render 'new' template
