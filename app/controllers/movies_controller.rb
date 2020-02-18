@@ -11,23 +11,42 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.order(params[:sort])
     @all_ratings = Movie.all_ratings
-    @renderMovies = params[:sort] == "title" ? true : false
-    @renderRelease = params[:sort] == "release_date"? true : false
-    if params[:ratings] != nil
-      session[:ratings] = params[:ratings]
-    end
-    if params[:sort] != nil
-      session[:sort] = params[:sort]
-    end
-    if params[:ratings] == nil && params[:sort] == nil
+    if params[:ratings] == nil && session[:ratings] != nil
+      @filters = @all_ratings
       params[:ratings] = session[:ratings]
-      params[:sort] = session[:sort]
     end
-    ratings = params[:ratings] != nil ? params[:ratings].keys : @all_ratings
-    @rating_checked = Hash[@all_ratings.map{|r|[r,ratings.include?(r)]}]
-    @movies = Movie.where(rating: ratings)
+    @filters = params[:ratings].nil? ? @all_ratings : params[:ratings]
+    
+    
+    
+    if(params[:ratings])
+      session[:ratings] = params[:ratings]
+      @filters = params[:ratings]
+    elsif (session[:ratings])
+      if params[:sort] == nil
+        redirect_to movies_path({:ratings => params[:ratings]})
+      else
+        redirect_to movies_path(:sort => session[:sort], :ratings => session[:ratings])
+      end
+    end
+    
+    if(params[:sort] && params[:ratings] != nil)
+      @renderMovies = params[:sort] == "title" ? true : false
+      @renderRelease = params[:sort] == "release_date"? true : false
+      session[:sort] = params[:sort]
+      @movies = Movie.where(:ratings => @filters)
+      @movies = @movies.order(params[:sort])
+    elsif(params[:sort] && params[:ratings] == nil)
+      @renderMovies = params[:sort] == "title" ? true : false
+      @renderRelease = params[:sort] == "release_date"? true : false
+      session[:sort] = params[:sort]
+      @movies = Movie.order(params[:sort])
+    elsif(session[:sort])
+      redirect_to movies_path({:sort => session[:sort], :ratings => session[:ratings]})
+    else
+      @movies = Movie.all
+    
   end
   def new  
     # default: render 'new' template
